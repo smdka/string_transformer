@@ -4,6 +4,7 @@ import com.homework.stringtransformer.dto.ElementDto;
 import com.homework.stringtransformer.dto.ResponseDto;
 import com.homework.stringtransformer.dto.TransformerDto;
 import com.homework.stringtransformer.strategy.TransformationStrategy;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Service
 public class TransformerServiceImpl implements TransformerService {
     @Autowired
@@ -19,6 +21,8 @@ public class TransformerServiceImpl implements TransformerService {
 
     @Override
     public List<ResponseDto> transform(Collection<ElementDto> elementDtos) {
+        log.info("Entering TransformerServiceImpl.transform: {}", elementDtos);
+
         List<ResponseDto> responseDtos = new ArrayList<>();
 
         for (ElementDto elementDto : elementDtos) {
@@ -38,6 +42,8 @@ public class TransformerServiceImpl implements TransformerService {
                 responseDtos.add(new ResponseDto(value, transformed));
             }
         }
+
+        log.info("Exiting TransformerServiceImpl.transform: {}", responseDtos);
         return responseDtos;
     }
 }

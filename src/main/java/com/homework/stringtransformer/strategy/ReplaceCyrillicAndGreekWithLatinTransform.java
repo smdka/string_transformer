@@ -1,10 +1,12 @@
 package com.homework.stringtransformer.strategy;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Component("t3")
 public class ReplaceCyrillicAndGreekWithLatinTransform implements TransformationStrategy {
     private final Map<Character, Character> toLatin = Map.of(
@@ -18,6 +20,8 @@ public class ReplaceCyrillicAndGreekWithLatinTransform implements Transformation
 
     @Override
     public String transform(String source, List<String> params) {
+        log.info("Entering ReplaceCyrillicAndGreekWithLatinTransform.transform: {}, {}", source, params);
+
         char[] chars = source.toCharArray();
         for (int i = 0; i < chars.length; i++) {
             Character replacement = toLatin.get(chars[i]);
@@ -25,6 +29,8 @@ public class ReplaceCyrillicAndGreekWithLatinTransform implements Transformation
                 chars[i] = replacement;
             }
         }
+
+        log.info("Exiting ReplaceCyrillicAndGreekWithLatinTransform.transform: {}", chars);
         return new String(chars);
     }
 }
